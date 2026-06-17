@@ -51,8 +51,8 @@ The syllabus for this class can be found on the following Notion page.
 
 ### Contributors
 
-<a href="https://github.com/NSLab-CUK/Graph-Neural-Networks-Fall-2025/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=NSLab-CUK/Graph-Neural-Networks-Fall-2025" />
+<a href="https://github.com/NSLab-CUK/Graph-Neural-Networks-Fall-2026/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=NSLab-CUK/Graph-Neural-Networks-Fall-2026" />
 </a>
 
 <br>
