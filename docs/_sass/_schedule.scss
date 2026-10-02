@@ -156,6 +156,46 @@ $sched-radius: 10px;
     }
 }
 
+.week-eyebrow {
+    margin: 0 0 2px;
+    font-family: $ui-font;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: $primary-color;
+}
+
+.week-card.is-upcoming {
+    background: #fbfcfe;
+    border-style: dashed;
+
+    h3 {
+        color: $ui-muted;
+    }
+}
+
+.week-card.is-special {
+    border-style: solid;
+    border-left: 4px solid $ev-assignment;
+    background: color-mix(in srgb, #{$ev-assignment} 5%, #fff);
+
+    .week-eyebrow {
+        color: $ev-assignment;
+    }
+
+    h3 {
+        color: $ui-ink;
+    }
+}
+
+.week-pending {
+    font-family: $ui-font;
+    font-size: 13px;
+    font-style: italic;
+    color: #9aa1b2;
+}
+
 .week-tldr {
     margin: 4px 0 0;
     color: $ui-muted;

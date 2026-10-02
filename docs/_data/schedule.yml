@@ -24,3 +24,16 @@ sessions:
     label: Practice
     note: Practice code
 
+# Week-by-week list on the Schedule page
+semester:
+  first_monday: 2026-08-31   # Monday of week 1
+  weeks: 16
+
+# Weeks without regular classes
+special_weeks:
+  - week: 8
+    title: Mid-Term Exam
+    note: Details will be announced in class.
+  - week: 16
+    title: Final Exam
+    note: Details will be announced in class.

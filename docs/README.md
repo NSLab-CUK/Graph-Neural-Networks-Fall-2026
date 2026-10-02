@@ -72,7 +72,7 @@ solutions: https://github.com/NSLab-CUK/Graph-Neural-Networks-Fall-2026/blob/mai
 ### Tips
 
 - Keep two-digit filenames (`w06`, `w10`, `a06`, `a10`) so files stay in order.
-- An assignment is listed under a week on the Schedule page when its release `date` falls within 7 days of that week's lecture.
+- The Schedule page always lists weeks 1–16. A lecture or assignment file shows up under the week its `date` falls in. Weeks without a lecture file show "To be announced".
 - Always include the `+09:00` (KST) timezone in dates.
 - A Colab link is the GitHub link with `https://github.com/` replaced by `https://colab.research.google.com/github/`.
 
@@ -85,6 +85,7 @@ solutions: https://github.com/NSLab-CUK/Graph-Neural-Networks-Fall-2026/blob/mai
 | Home page text, grading, contacts | `index.md` |
 | Submission and late policy (shown on every assignment page) | `_data/late_policy.yml` |
 | Class days and periods (weekly timetable) | `_data/schedule.yml`, plus the intro sentence in `schedule.md` and the "Weekly Routine" list in `index.md` |
+| Semester start, number of weeks, exam weeks (Week by Week list) | `semester` and `special_weeks` in `_data/schedule.yml` |
 | Menu tabs | `_data/nav.yml` |
 | Previous years' links | `_data/previous_offering.yml` |
 | Course name, semester, course code, site URL | `_config.yml` |
@@ -114,7 +115,7 @@ Open http://localhost:4000/Graph-Neural-Networks-Fall-2026/. The page reloads wh
 
 1. Create the new repository (for example, `Graph-Neural-Networks-Fall-2027`) and copy this `docs/` folder into it.
 2. In `_config.yml`, update `baseurl`, `course_semester`, and `github_repo`.
-3. Delete the files in `_lectures/` and `_assignments/`. If the class days or periods change, update `_data/schedule.yml`.
+3. Delete the files in `_lectures/` and `_assignments/`. In `_data/schedule.yml`, set `semester.first_monday` to the Monday of week 1, and update the class days and periods if they change.
 4. Add this year to the top of `_data/previous_offering.yml`.
 5. Update `_data/people.yml` and `plan.md`.
 6. In the repository's **Settings → Pages**, choose **Deploy from a branch**, then `main` and `/docs`.

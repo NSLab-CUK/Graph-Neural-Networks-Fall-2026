@@ -61,35 +61,67 @@ layout: default
 <!-- Week by week -->
 <section class="sched-section">
     <h2>Week by Week</h2>
-    {% assign lectures_sorted = site.lectures | sort: 'date' %}
+    {% assign sem_start = sched.semester.first_monday | date: '%s' | plus: 0 %}
     <div class="weeks">
-    {% for lecture in lectures_sorted %}
-        {% assign l_s = lecture.date | date: '%s' | plus: 0 %}
-        {% assign w_end = l_s | plus: 604800 %}
-        {% if lecture.practice_date %}{% assign pr_date = lecture.practice_date %}{% else %}{% assign pr_date = l_s | plus: 172800 %}{% endif %}
-        <article class="week-card">
+    {% for n in (1..sched.semester.weeks) %}
+        {% assign w_start = n | minus: 1 | times: 604800 | plus: sem_start %}
+        {% assign w_end = w_start | plus: 604800 %}
+        {% assign w_fri = w_start | plus: 345600 %}
+
+        {% assign lecture = nil %}
+        {% for l in site.lectures %}
+            {% assign l_s = l.date | date: '%s' | plus: 0 %}
+            {% if l_s >= w_start and l_s < w_end %}{% assign lecture = l %}{% endif %}
+        {% endfor %}
+
+        {% assign special = nil %}
+        {% for sw in sched.special_weeks %}{% if sw.week == n %}{% assign special = sw %}{% endif %}{% endfor %}
+
+        {% capture week_prefix %}Week {{ n }}: {% endcapture %}
+        <article class="week-card{% if lecture == nil %} is-upcoming{% endif %}{% if special and lecture == nil %} is-special{% endif %}">
             <header>
-                <h3>{{ lecture.title }}</h3>
+                <p class="week-eyebrow">Week {{ n }} &middot; {{ w_start | date: '%b %-d' }} – {{ w_fri | date: '%b %-d' }}</p>
+                {% if lecture %}
+                <h3>{{ lecture.title | remove_first: week_prefix }}</h3>
                 {% if lecture.tldr %}<p class="week-tldr">{{ lecture.tldr }}</p>{% endif %}
+                {% elsif special %}
+                <h3>{{ special.title }}</h3>
+                {% if special.note %}<p class="week-tldr">{{ special.note }}</p>{% endif %}
+                {% else %}
+                <h3>To be announced</h3>
+                {% endif %}
             </header>
+
+            {% unless special and lecture == nil %}
+            {% if lecture %}
+                {% assign lec_date = lecture.date %}
+                {% if lecture.practice_date %}{% assign pr_date = lecture.practice_date %}{% else %}{% assign pr_date = lecture.date | date: '%s' | plus: 172800 %}{% endif %}
+            {% else %}
+                {% assign lec_date = w_start | plus: 86400 %}
+                {% assign pr_date = w_start | plus: 259200 %}
+            {% endif %}
             <ul class="week-items">
                 <li>
                     <span class="week-tag ev-lecture">Lecture</span>
-                    <span class="week-when">{{ lecture.date | date: '%a, %b %-d' }} · {{ lecture_time }}</span>
+                    <span class="week-when">{{ lec_date | date: '%a, %b %-d' }} · {{ lecture_time }}</span>
                     <span class="week-links">
+                    {% if lecture %}
                     {% for link in lecture.links %}{% unless link.name contains 'practice' %}<a href="{% include url.html url=link.url %}">{{ link.name }}</a>{% endunless %}{% endfor %}
+                    {% else %}<span class="week-pending">Materials will be posted</span>{% endif %}
                     </span>
                 </li>
                 <li>
                     <span class="week-tag ev-practice">Practice</span>
                     <span class="week-when">{{ pr_date | date: '%a, %b %-d' }} · {{ practice_time }}</span>
                     <span class="week-links">
+                    {% if lecture %}
                     {% for link in lecture.links %}{% if link.name contains 'practice' %}<a href="{% include url.html url=link.url %}">{{ link.name }}</a>{% endif %}{% endfor %}
+                    {% else %}<span class="week-pending">Materials will be posted</span>{% endif %}
                     </span>
                 </li>
                 {% for asg in site.assignments %}
                 {% assign a_s = asg.date | date: '%s' | plus: 0 %}
-                {% if a_s >= l_s and a_s < w_end %}
+                {% if a_s >= w_start and a_s < w_end %}
                 <li>
                     <span class="week-tag ev-assignment">Assignment</span>
                     <span class="week-when">{% if asg.due_event %}Due {{ asg.due_event.date | date: '%a, %b %-d' }} · {{ asg.due_event.date | date: '%H:%M' }}{% endif %}</span>
@@ -101,6 +133,7 @@ layout: default
                 {% endif %}
                 {% endfor %}
             </ul>
+            {% endunless %}
         </article>
     {% endfor %}
     </div>
