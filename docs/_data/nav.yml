@@ -1,0 +1,28 @@
+items:
+- url: /
+  name: Home
+  icon_class: fa fa-home fa-lg
+
+- url: /schedule/
+  name: Schedule
+  icon_class: fas fa-calendar-alt
+
+- url: /lectures/
+  name: Lectures
+  icon_class: fas fa-book-reader
+
+- url: /assignments/
+  name: Assignments
+  icon_class: fas fa-user-graduate
+
+- url: /materials/
+  name: Materials
+  icon_class: fas fa-book
+
+- url: https://ns-cuk.notion.site/06838-Graph-Neural-Networks-Fall-2023-f147ff0f52ab41acbcb8636de7e44d46?pvs=4
+  name: Syllabus
+  icon_class: fas fa-file-alt
+
+- url: https://github.com/NSLab-CUK/Graph-Neural-Networks-Fall-2026
+  name: GitHub
+  icon_class: fab fa-github
