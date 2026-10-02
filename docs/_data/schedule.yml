@@ -24,7 +24,3 @@ sessions:
     label: Practice
     note: Practice code
 
-# Months the calendar can show (YYYY-MM)
-calendar:
-  first_month: "2026-09"
-  last_month: "2026-12"
