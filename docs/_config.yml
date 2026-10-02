@@ -30,7 +30,7 @@ permalink: blog/:year/:month/:title
 excerpt_separator: "<!--more-->"
 
 include: ['_images', '_css']
-exclude: ['develop', 'Gemfile', 'Gemfile.lock', 'LICENSE', 'vendor']
+exclude: ['develop', 'README.md', 'Gemfile', 'Gemfile.lock', 'LICENSE', 'vendor']
 
 dateformat: "%m/%d/%Y"
 
