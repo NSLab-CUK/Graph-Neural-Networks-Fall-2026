@@ -2,6 +2,7 @@
 course_name: Graph Neural Networks
 course_description: "Graph Neural Networks class (06838-01) of the Department of Artificial Intelligence at the Catholic University of Korea. This site archives the lecture materials of the class, such as sample code, practices, assignments, and solutions."
 course_semester: "Fall 2026"
+course_code: "06838-01"
 
 baseurl: "/Graph-Neural-Networks-Fall-2026" # the subpath of your site, e.g. /blog/
 url: "https://nslab-cuk.github.io" # the base hostname & protocol for your site

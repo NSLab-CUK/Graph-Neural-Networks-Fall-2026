@@ -1,79 +1,51 @@
 <footer class="site-footer">
-
-  <div class="wrapper">
-
-<!--     <h2 class="footer-heading">{{ site.schoolname }}</h2> -->
-         <div class="footer-col-wrapper">
-      <div class="footer-col  footer-col-1">
- 
-
-         <p class="text">
-{{ site.address | newline_to_br  }}
-         </p>
-         <p class="text" style="font-size: 12px; color: gray;">
-Site based on the <a href="https://github.com/kazemnejad/jekyll-course-website-template">Jekyll course website template</a> (MIT).
-         </p>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <a href="{{ site.lab_url }}" class="footer-logo">
+          <img src="{{ '/_images/logo_wide.png' | prepend: site.baseurl }}" alt="Network Science Lab, The Catholic University of Korea">
+        </a>
+        <p>
+          <strong>{{ site.course_name }} ({{ site.course_code }})</strong> &middot; {{ site.course_semester }}<br>
+          {{ site.address | strip | newline_to_br }}
+        </p>
       </div>
 
-      <div class="footer-col  footer-col-2">
-       <ul class="social-media-list">
-     
+      <div class="footer-col">
+        <h4>Course</h4>
+        <ul>
+          {% for item in site.data.nav.items %}
+          {% unless item.url contains '://' %}
+          <li><a href="{% include url.html url=item.url %}">{{ item.name }}</a></li>
+          {% endunless %}
+          {% endfor %}
+        </ul>
+      </div>
 
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
           {% if site.github_repo %}
-  <li>
-    <a href="https://github.com/{{ site.github_repo }}">
-      <i class="fab fa-github" style="color:gray"></i> {{ site.github_repo }}
-    </a>
-  </li>
-{% endif %}
-
+          <li><a href="https://github.com/{{ site.github_repo }}"><i class="fab fa-github" aria-hidden="true"></i> Course repository</a></li>
+          {% endif %}
           {% if site.lab_url %}
-  <li>
-    <a href="{{ site.lab_url }}">
-      <i class="fas fa-flask" style="color:gray"></i> Network Science Lab
-    </a>
-  </li>
-{% endif %}
-
-          {% if site.twitter_username %}
-  <li>
-    <a href="https://twitter.com/{{ site.twitter_username }}">
-      <i class="fab fa-twitter" style="color:gray"></i> {{ site.twitter_username }}
-    </a>
-  </li>
-{% endif %}
-
-          {% if site.google_scholar_id %}
-  <li>
-    <a href="https://scholar.google.com/citations?user={{ site.google_scholar_id }}">
-      <i class="ai ai-google-scholar" style="color:gray"></i> {{ site.google_scholar_id }}
-    </a>
-  </li>
-{% endif %}
-
-          {% if site.orcid_id %}
-  <li>
-    <a href="https://orcid.org/{{ site.orcid_id }}">
-      <i class="ai ai-orcid" style="color:gray"></i> {{ site.orcid_id }}
-    </a>
-  </li>
-{% endif %}
-
+          <li><a href="{{ site.lab_url }}"><i class="fas fa-flask" aria-hidden="true"></i> Network Science Lab</a></li>
+          {% endif %}
           {% if site.schoolurl %}
-  <li>
-    <a href="{{site.schoolurl}}">
-      <i class="fas fa-globe" style="color:gray"></i> {{site.schoolurl |  remove: "https://" | remove: "http://" | remove: "www." }}
-    </a>
-  </li>
-{% endif %}
-
-
-
-       
+          <li><a href="{{ site.schoolurl }}"><i class="fas fa-university" aria-hidden="true"></i> {{ site.schoolname }}</a></li>
+          {% endif %}
+          {% for ins in site.data.people.instructors %}
+          {% if ins.email %}
+          <li><a href="mailto:{{ ins.email }}"><i class="fas fa-envelope" aria-hidden="true"></i> {{ ins.email }}</a></li>
+          {% endif %}
+          {% endfor %}
         </ul>
       </div>
     </div>
 
+    <div class="footer-bottom">
+      <span>&copy; {{ site.time | date: '%Y' }} Network Science Lab, {{ site.schoolname }}</span>
+      <span>Built with Jekyll, based on the <a href="https://github.com/kazemnejad/jekyll-course-website-template">course website template</a> (MIT)</span>
+    </div>
   </div>
-
 </footer>

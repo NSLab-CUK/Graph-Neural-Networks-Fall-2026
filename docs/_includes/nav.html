@@ -1,8 +1,16 @@
 <ul class="menu">
     {% for item in site.data.nav.items %}
+    {% assign external = false %}
+    {% if item.url contains '://' %}{% assign external = true %}{% endif %}
+    {% assign active = false %}
+    {% if item.url == '/' %}
+        {% if page.url == '/' or page.url == '/index.html' %}{% assign active = true %}{% endif %}
+    {% elsif external == false and page.url contains item.url %}
+        {% assign active = true %}
+    {% endif %}
     <li>
-        <a class="page-link" href="{% include url.html url=item.url %}">
-            <i class="{{ item.icon_class }}"></i> {{ item.name }}
+        <a class="page-link{% if active %} active{% endif %}" href="{% include url.html url=item.url %}"{% if active %} aria-current="page"{% endif %}{% if external %} target="_blank" rel="noopener"{% endif %}>
+            <i class="{{ item.icon_class }}" aria-hidden="true"></i><span>{{ item.name }}</span>
         </a>
     </li>
     {% endfor %}
