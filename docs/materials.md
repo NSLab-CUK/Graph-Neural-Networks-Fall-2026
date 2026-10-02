@@ -8,7 +8,7 @@ permalink: /materials/
 
 * Python >= 3.8.8
 * Main libraries used in the notebooks: [NetworkX](https://networkx.org/), [PyTorch](https://pytorch.org/), and [PyTorch Geometric](https://pytorch-geometric.readthedocs.io/)
-* Every notebook can be opened in [Google Colab](https://colab.research.google.com/) from the [Lectures]({{ site.baseurl }}/lectures/) page, so no local setup is required.
+* Every notebook can be opened in [Google Colab](https://colab.research.google.com/) from the [Schedule]({{ site.baseurl }}/schedule/) page, so no local setup is required.
 
 ## Repository Layout
 

@@ -7,9 +7,11 @@ The week-by-week topics are on the [Course Plan]({{ site.baseurl }}/plan/) page,
 
 ## Weekly Routine
 
-* **Tuesday:** lecture with sample code (`SampleCode_*.ipynb`)
-* **Thursday:** practice session (`PracticeCode_*.ipynb`) and the weekly assignment is released (`Assignment_*.ipynb`)
+* **Tuesday, periods 2–3 (10:00–11:50):** lecture with sample code (`SampleCode_*.ipynb`)
+* **Thursday, period 3 (11:00–11:50):** practice session (`PracticeCode_*.ipynb`) and the weekly assignment is released (`Assignment_*.ipynb`)
 * **Next Wednesday:** assignment due on e-class. Solutions are uploaded after the deadline.
+
+See the [Schedule]({{ site.baseurl }}/schedule/) for the calendar and all materials.
 
 ## Assignments
 

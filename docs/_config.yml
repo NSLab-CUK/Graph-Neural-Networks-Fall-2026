@@ -39,7 +39,7 @@ collections:
     events:
         output: true
     lectures:
-        output: true
+        output: false
     assignments:
         output: true
     announcements:

@@ -1,34 +1,282 @@
 ---
 layout: default
 ---
+{% assign sched = site.data.schedule %}
 
 <header class="post-header">
-    <h1 class="post-title">Schedule</h1>
+    <h1 class="post-title">{{ page.title }}</h1>
 </header>
 
 {{ content }}
 
-<div class="home" style="font-size: 0.8em;">
-    <ul class="responsive-table" style="margin-left: 0;">
-        <li class="table-header">
-            <div class="col col-1">Event</div>
-            <div class="col col-1-2">Date</div>
-            <div class="col col-2">Description</div>
-            <div class="col col-4">Course Material</div>
-        </li>
-        
-        {% assign all_assignment_dues = site.assignments | map: "due_event" %}
+{%- comment -%} Start/end times of each weekly session, derived from its periods {%- endcomment -%}
+{% assign lecture_time = "" %}{% assign practice_time = "" %}
+{% for s in sched.sessions %}
+    {% assign p_first = s.periods | first %}{% assign p_last = s.periods | last %}
+    {% for p in sched.periods %}
+        {% if p.n == p_first %}{% assign s_start = p.start %}{% endif %}
+        {% if p.n == p_last %}{% assign s_end = p.end %}{% endif %}
+    {% endfor %}
+    {% capture s_time %}{{ s_start }}–{{ s_end }}{% endcapture %}
+    {% if s.kind == 'lecture' %}{% assign lecture_time = s_time %}{% endif %}
+    {% if s.kind == 'practice' %}{% assign practice_time = s_time %}{% endif %}
+{% endfor %}
 
-        {% assign all_events = site.events | concat: site.lectures %}
-        {% assign all_events = all_events | concat: site.assignments %}
-        {% assign all_events = all_events | concat: all_assignment_dues %}
-        {% assign all_events_sorted = all_events | sort: 'date' %}
-
-        {% for event in all_events_sorted %}
-        <li class="table-row table-row-{{ event.type}}">
-            {% include schedule_row_{{ event.type }}.html event=event %}
-        </li>
+<!-- Weekly timetable -->
+<section class="sched-section">
+    <h2>Weekly Timetable</h2>
+    <div class="timetable" role="table" aria-label="Weekly timetable">
+        <div class="tt-head tt-corner" style="grid-column: 1; grid-row: 1;"></div>
+        {% for d in sched.days %}
+        <div class="tt-head" style="grid-column: {{ forloop.index | plus: 1 }}; grid-row: 1;">{{ d }}</div>
         {% endfor %}
 
-    </ul>
-</div>
+        {% for p in sched.periods %}
+        {% assign row = forloop.index | plus: 1 %}
+        <div class="tt-period" style="grid-column: 1; grid-row: {{ row }};">
+            <strong>{{ p.n }}</strong><span>{{ p.start }}</span>
+        </div>
+        {% for d in sched.days %}
+        <div class="tt-cell" style="grid-column: {{ forloop.index | plus: 1 }}; grid-row: {{ row }};"></div>
+        {% endfor %}
+        {% endfor %}
+
+        {% for s in sched.sessions %}
+        {% assign col = 0 %}
+        {% for d in sched.days %}{% if d == s.day %}{% assign col = forloop.index | plus: 1 %}{% endif %}{% endfor %}
+        {% assign p_first = s.periods | first %}{% assign p_last = s.periods | last %}
+        {% for p in sched.periods %}
+            {% if p.n == p_first %}{% assign s_start = p.start %}{% assign s_row = forloop.index | plus: 1 %}{% endif %}
+            {% if p.n == p_last %}{% assign s_end = p.end %}{% endif %}
+        {% endfor %}
+        <div class="tt-session tt-{{ s.kind }}" style="grid-column: {{ col }}; grid-row: {{ s_row }} / span {{ s.periods.size }};">
+            <strong>{{ s.label }}</strong>
+            <span>{{ s_start }}–{{ s_end }}</span>
+            <span class="tt-note">Period{% if s.periods.size > 1 %}s {{ p_first }}–{{ p_last }}{% else %} {{ p_first }}{% endif %}{% if s.note %} · {{ s.note }}{% endif %}</span>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Month calendar -->
+<section class="sched-section">
+    <h2>Calendar</h2>
+    <div class="cal" id="cal">
+        <div class="cal-toolbar">
+            <button type="button" class="cal-btn" data-nav="-1" aria-label="Previous month"><i class="fas fa-chevron-left"></i></button>
+            <h3 class="cal-month" id="cal-month" aria-live="polite"></h3>
+            <button type="button" class="cal-btn" data-nav="1" aria-label="Next month"><i class="fas fa-chevron-right"></i></button>
+            <button type="button" class="cal-btn cal-today" data-nav="today">Today</button>
+        </div>
+        <div class="cal-legend">
+            <span><i class="dot ev-lecture"></i>Lecture</span>
+            <span><i class="dot ev-practice"></i>Practice</span>
+            <span><i class="dot ev-assignment"></i>Assignment released</span>
+            <span><i class="dot ev-due"></i>Assignment due</span>
+            <span><i class="dot ev-exam"></i>Exam / event</span>
+        </div>
+        <div class="cal-grid" id="cal-grid"></div>
+        <div class="cal-detail" id="cal-detail" aria-live="polite"></div>
+    </div>
+    <noscript><p>Enable JavaScript to see the calendar. All sessions are also listed below.</p></noscript>
+</section>
+
+<!-- Week by week -->
+<section class="sched-section">
+    <h2>Week by Week</h2>
+    {% assign lectures_sorted = site.lectures | sort: 'date' %}
+    <div class="weeks">
+    {% for lecture in lectures_sorted %}
+        {% assign l_s = lecture.date | date: '%s' | plus: 0 %}
+        {% assign w_end = l_s | plus: 604800 %}
+        {% if lecture.practice_date %}{% assign pr_date = lecture.practice_date %}{% else %}{% assign pr_date = l_s | plus: 172800 %}{% endif %}
+        <article class="week-card">
+            <header>
+                <h3>{{ lecture.title }}</h3>
+                {% if lecture.tldr %}<p class="week-tldr">{{ lecture.tldr }}</p>{% endif %}
+            </header>
+            <ul class="week-items">
+                <li>
+                    <span class="week-tag ev-lecture">Lecture</span>
+                    <span class="week-when">{{ lecture.date | date: '%a, %b %-d' }} · {{ lecture_time }}</span>
+                    <span class="week-links">
+                    {% for link in lecture.links %}{% unless link.name contains 'practice' %}<a href="{% include url.html url=link.url %}">{{ link.name }}</a>{% endunless %}{% endfor %}
+                    </span>
+                </li>
+                <li>
+                    <span class="week-tag ev-practice">Practice</span>
+                    <span class="week-when">{{ pr_date | date: '%a, %b %-d' }} · {{ practice_time }}</span>
+                    <span class="week-links">
+                    {% for link in lecture.links %}{% if link.name contains 'practice' %}<a href="{% include url.html url=link.url %}">{{ link.name }}</a>{% endif %}{% endfor %}
+                    </span>
+                </li>
+                {% for asg in site.assignments %}
+                {% assign a_s = asg.date | date: '%s' | plus: 0 %}
+                {% if a_s >= l_s and a_s < w_end %}
+                <li>
+                    <span class="week-tag ev-assignment">Assignment</span>
+                    <span class="week-when">{% if asg.due_event %}Due {{ asg.due_event.date | date: '%a, %b %-d' }} · {{ asg.due_event.date | date: '%H:%M' }}{% endif %}</span>
+                    <span class="week-links">
+                        <a href="{{ asg.url | prepend: site.baseurl }}">{{ asg.title }}</a>
+                        {% if asg.solutions %}<a href="{% include url.html url=asg.solutions %}">solutions</a>{% endif %}
+                    </span>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </article>
+    {% endfor %}
+    </div>
+</section>
+
+{%- comment -%} Calendar events, rendered by the script below {%- endcomment -%}
+<script type="application/json" id="cal-data">
+{
+  "firstMonth": {{ sched.calendar.first_month | jsonify }},
+  "lastMonth": {{ sched.calendar.last_month | jsonify }},
+  "events": [
+  {%- for lecture in lectures_sorted -%}
+    {%- assign l_s = lecture.date | date: '%s' | plus: 0 -%}
+    {%- if lecture.practice_date -%}{%- assign pr_date = lecture.practice_date -%}{%- else -%}{%- assign pr_date = l_s | plus: 172800 -%}{%- endif -%}
+    {%- capture lec_links -%}[{%- for link in lecture.links -%}{%- unless link.name contains 'practice' -%}{%- capture u -%}{% include url.html url=link.url %}{%- endcapture -%}{"name": {{ link.name | jsonify }}, "url": {{ u | strip | jsonify }}},{%- endunless -%}{%- endfor -%}null]{%- endcapture -%}
+    {%- capture pr_links -%}[{%- for link in lecture.links -%}{%- if link.name contains 'practice' -%}{%- capture u -%}{% include url.html url=link.url %}{%- endcapture -%}{"name": {{ link.name | jsonify }}, "url": {{ u | strip | jsonify }}},{%- endif -%}{%- endfor -%}null]{%- endcapture -%}
+    {"date": {{ lecture.date | date: '%Y-%m-%d' | jsonify }}, "kind": "lecture", "label": "Lecture", "time": {{ lecture_time | jsonify }}, "title": {{ lecture.title | jsonify }}, "text": {{ lecture.tldr | jsonify }}, "links": {{ lec_links }}},
+    {"date": {{ pr_date | date: '%Y-%m-%d' | jsonify }}, "kind": "practice", "label": "Practice", "time": {{ practice_time | jsonify }}, "title": {{ lecture.title | jsonify }}, "links": {{ pr_links }}},
+  {%- endfor -%}
+  {%- for asg in site.assignments -%}
+    {%- capture asg_url -%}{{ asg.url | prepend: site.baseurl }}{%- endcapture -%}
+    {%- capture asg_links -%}[{"name": "assignment page", "url": {{ asg_url | jsonify }}},{%- for link in asg.links -%}{%- capture u -%}{% include url.html url=link.url %}{%- endcapture -%}{"name": {{ link.name | jsonify }}, "url": {{ u | strip | jsonify }}},{%- endfor -%}{%- if asg.solutions -%}{%- capture u -%}{% include url.html url=asg.solutions %}{%- endcapture -%}{"name": "solutions", "url": {{ u | strip | jsonify }}},{%- endif -%}null]{%- endcapture -%}
+    {"date": {{ asg.date | date: '%Y-%m-%d' | jsonify }}, "kind": "assignment", "label": "Released", "title": {{ asg.title | jsonify }}, "links": {{ asg_links }}},
+    {%- if asg.due_event -%}
+    {"date": {{ asg.due_event.date | date: '%Y-%m-%d' | jsonify }}, "kind": "due", "label": "Due", "time": {{ asg.due_event.date | date: '%H:%M' | jsonify }}, "title": {{ asg.due_event.description | default: asg.title | jsonify }}, "links": [{"name": "assignment page", "url": {{ asg_url | jsonify }}}]},
+    {%- endif -%}
+  {%- endfor -%}
+  {%- for ev in site.events -%}
+    {%- capture ev_text -%}{{ ev.content | strip_html | strip }}{%- endcapture -%}
+    {"date": {{ ev.date | date: '%Y-%m-%d' | jsonify }}, "kind": {% if ev.type == 'exam' %}"exam"{% else %}"event"{% endif %}, "label": {{ ev.name | default: "Event" | jsonify }}, "time": {{ ev.date | date: '%H:%M' | jsonify }}, "title": {{ ev.description | jsonify }}, "text": {{ ev_text | jsonify }}},
+  {%- endfor -%}
+  null]
+}
+</script>
+
+<script>
+(function () {
+  var data = JSON.parse(document.getElementById('cal-data').textContent);
+  var events = data.events.filter(Boolean).map(function (e) {
+    if (e.links) e.links = e.links.filter(Boolean);
+    return e;
+  });
+  var KIND_ORDER = { lecture: 0, practice: 1, assignment: 2, due: 3, exam: 4, event: 5 };
+  var byDate = {};
+  events.forEach(function (e) { (byDate[e.date] = byDate[e.date] || []).push(e); });
+  Object.keys(byDate).forEach(function (d) {
+    byDate[d].sort(function (a, b) { return KIND_ORDER[a.kind] - KIND_ORDER[b.kind]; });
+  });
+
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var DOW = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function ym(y, m) { return y + '-' + pad(m + 1); }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  // "Today" in Korea time, whatever the viewer's timezone
+  var today;
+  try { today = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Seoul' }); }
+  catch (err) { var t = new Date(); today = t.getFullYear() + '-' + pad(t.getMonth() + 1) + '-' + pad(t.getDate()); }
+
+  function clampMonth(key) {
+    if (key < data.firstMonth) return data.firstMonth;
+    if (key > data.lastMonth) return data.lastMonth;
+    return key;
+  }
+
+  // Start on the next upcoming event (or today), within the semester months
+  var dates = Object.keys(byDate).sort();
+  var selected = byDate[today] ? today : (dates.filter(function (d) { return d >= today; })[0] || dates[dates.length - 1] || today);
+  var cur = clampMonth(selected.slice(0, 7));
+
+  var grid = document.getElementById('cal-grid');
+  var title = document.getElementById('cal-month');
+  var detail = document.getElementById('cal-detail');
+
+  function render() {
+    var y = +cur.slice(0, 4), m = +cur.slice(5, 7) - 1;
+    title.textContent = MONTHS[m] + ' ' + y;
+    document.querySelector('[data-nav="-1"]').disabled = cur <= data.firstMonth;
+    document.querySelector('[data-nav="1"]').disabled = cur >= data.lastMonth;
+
+    var html = DOW.map(function (d) { return '<div class="cal-dow">' + d + '</div>'; }).join('');
+    var first = new Date(y, m, 1);
+    var offset = (first.getDay() + 6) % 7; // Monday-first
+    var days = new Date(y, m + 1, 0).getDate();
+    for (var i = 0; i < offset; i++) html += '<div class="cal-day cal-empty"></div>';
+    for (var d = 1; d <= days; d++) {
+      var key = ym(y, m) + '-' + pad(d);
+      var evs = byDate[key] || [];
+      var cls = 'cal-day' + (key === today ? ' is-today' : '') + (key === selected ? ' is-selected' : '') + (evs.length ? ' has-events' : '');
+      html += '<button type="button" class="' + cls + '" data-date="' + key + '" aria-label="' + esc(MONTHS[m] + ' ' + d + (evs.length ? ', ' + evs.length + ' event(s)' : '')) + '">';
+      html += '<span class="cal-num">' + d + '</span>';
+      if (evs.length) {
+        html += '<span class="cal-chips">';
+        evs.forEach(function (e) {
+          html += '<span class="cal-chip ev-' + e.kind + '"><span class="cal-chip-text">' + esc(e.label) + (e.time ? ' ' + esc(e.time.split('–')[0]) : '') + '</span></span>';
+        });
+        html += '</span>';
+      }
+      html += '</button>';
+    }
+    grid.innerHTML = html;
+    renderDetail();
+  }
+
+  function renderDetail() {
+    var evs = byDate[selected] || [];
+    var dt = new Date(+selected.slice(0, 4), +selected.slice(5, 7) - 1, +selected.slice(8, 10));
+    var heading = DOW[(dt.getDay() + 6) % 7] + ', ' + MONTHS[dt.getMonth()] + ' ' + dt.getDate();
+    if (!evs.length) {
+      detail.innerHTML = '<h4>' + esc(heading) + '</h4><p class="cal-none">No class or deadline on this day.</p>';
+      return;
+    }
+    detail.innerHTML = '<h4>' + esc(heading) + '</h4>' + evs.map(function (e) {
+      var links = (e.links || []).map(function (l) {
+        return '<a href="' + esc(l.url) + '">' + esc(l.name) + '</a>';
+      }).join('');
+      return '<div class="cal-event ev-' + e.kind + '">' +
+        '<div class="cal-event-meta"><span class="week-tag ev-' + e.kind + '">' + esc(e.label) + '</span>' +
+        (e.time ? '<span class="cal-event-time">' + esc(e.time) + '</span>' : '') + '</div>' +
+        '<div class="cal-event-title">' + esc(e.title) + '</div>' +
+        (e.text ? '<div class="cal-event-text">' + esc(e.text) + '</div>' : '') +
+        (links ? '<div class="week-links">' + links + '</div>' : '') +
+        '</div>';
+    }).join('');
+  }
+
+  grid.addEventListener('click', function (ev) {
+    var btn = ev.target.closest('.cal-day[data-date]');
+    if (!btn) return;
+    selected = btn.getAttribute('data-date');
+    render();
+  });
+
+  document.querySelectorAll('.cal-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var nav = btn.getAttribute('data-nav');
+      if (nav === 'today') {
+        selected = today;
+        cur = clampMonth(today.slice(0, 7));
+      } else {
+        var y = +cur.slice(0, 4), m = +cur.slice(5, 7) - 1 + (+nav);
+        cur = clampMonth(ym(y + Math.floor(m / 12), ((m % 12) + 12) % 12));
+      }
+      render();
+    });
+  });
+
+  render();
+})();
+</script>

@@ -1,0 +1,30 @@
+# Class periods of the university timetable
+periods:
+  - { n: 1, start: "09:00", end: "09:50" }
+  - { n: 2, start: "10:00", end: "10:50" }
+  - { n: 3, start: "11:00", end: "11:50" }
+  - { n: 4, start: "12:00", end: "12:50" }
+  - { n: 5, start: "13:00", end: "13:50" }
+  - { n: 6, start: "14:00", end: "14:50" }
+  - { n: 7, start: "15:00", end: "15:50" }
+  - { n: 8, start: "16:00", end: "16:50" }
+
+days: [Mon, Tue, Wed, Thu, Fri]
+
+# Weekly class sessions. `periods` refers to the `n` values above.
+sessions:
+  - day: Tue
+    periods: [2, 3]
+    kind: lecture
+    label: Lecture
+    note: Sample code
+  - day: Thu
+    periods: [3]
+    kind: practice
+    label: Practice
+    note: Practice code
+
+# Months the calendar can show (YYYY-MM)
+calendar:
+  first_month: "2026-09"
+  last_month: "2026-12"
