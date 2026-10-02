@@ -23,10 +23,6 @@ items:
   name: Materials
   icon_class: fas fa-book
 
-- url: https://ns-cuk.notion.site/06838-Graph-Neural-Networks-Fall-2023-f147ff0f52ab41acbcb8636de7e44d46?pvs=4
-  name: Syllabus
-  icon_class: fas fa-file-alt
-
 - url: https://github.com/NSLab-CUK/Graph-Neural-Networks-Fall-2026
   name: GitHub
   icon_class: fab fa-github
