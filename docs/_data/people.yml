@@ -1,21 +1,21 @@
 instructors:
   - name: O-Joun Lee
-    profile_pic: /_images/pp/avatar.svg
+    profile_pic: /_images/pp/ojlee4.jpg
     webpage: https://nslab-cuk.github.io/member
     email: ojlee@catholic.ac.kr
 
 teaching_assistants:
   - name: Van Thuy Hoang
-    profile_pic: /_images/pp/avatar.svg
+    profile_pic: /_images/pp/Thuy.jpg
     webpage: https://nslab-cuk.github.io/member/hoangvanthuy90
     email: hoangvanthuy90@gmail.com
 
   - name: Tien-Bach-Thanh Do
-    profile_pic: /_images/pp/avatar.svg
+    profile_pic: /_images/pp/Thanh.jpg
     webpage: https://nslab-cuk.github.io/member/osfa19730
     email: osfa19730@catholic.ac.kr
 
   - name: Huu-Tuong Ho
-    profile_pic: /_images/pp/avatar.svg
+    profile_pic: /_images/pp/Tuong.jpg
     webpage: https://nslab-cuk.github.io/member/
     email: tuonghh@catholic.ac.kr
