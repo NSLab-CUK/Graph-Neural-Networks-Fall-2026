@@ -3,7 +3,7 @@ layout: home
 ---
 All materials (sample code, practices, assignments, and solutions) are archived in the
 [GitHub repository](https://github.com/NSLab-CUK/Graph-Neural-Networks-Fall-2026).
-The full syllabus is on [Notion](https://ns-cuk.notion.site/06838-Graph-Neural-Networks-Fall-2023-f147ff0f52ab41acbcb8636de7e44d46?pvs=4).
+The week-by-week topics are on the [Course Plan]({{ site.baseurl }}/plan/) page, and the full syllabus is on [Notion](https://ns-cuk.notion.site/06838-Graph-Neural-Networks-Fall-2023-f147ff0f52ab41acbcb8636de7e44d46?pvs=4).
 
 ## Weekly Routine
 

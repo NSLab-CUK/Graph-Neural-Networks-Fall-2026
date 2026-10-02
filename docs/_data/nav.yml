@@ -3,6 +3,10 @@ items:
   name: Home
   icon_class: fa fa-home fa-lg
 
+- url: /plan/
+  name: Course Plan
+  icon_class: fas fa-list-ol
+
 - url: /schedule/
   name: Schedule
   icon_class: fas fa-calendar-alt
