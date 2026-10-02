@@ -1,5 +1,6 @@
 # Graph Neural Networks - Fall 2026
 
+
 <p align=center>
   <a href="https://www.python.org/downloads/release/python-360/">
     <img src="https://img.shields.io/badge/Python->=3.8.8-3776AB?logo=python&style=flat-square" alt="Python">
@@ -11,6 +12,29 @@
   <img src="https://custom-icon-badges.demolab.com/github/issues-raw/NSLab-CUK/Graph-Neural-Networks-Fall-2026?logo=issue&style=flat-square"/>
   <img src="https://custom-icon-badges.demolab.com/github/license/NSLab-CUK/Graph-Neural-Networks-Fall-2026?logo=law&style=flat-square"/>
 </p>
+
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <p>
+        <strong>Previous years</strong><br>
+        For previous years' lectures, you can visit the
+      </p>
+      <p>
+        <a href="https://github.com/NSLab-CUK/Graph-Neural-Networks-Fall-2025">
+          <img src="https://img.shields.io/badge/Fall-2025-0C2E86?style=flat-square&amp;logo=github&amp;logoColor=white" alt="Fall 2025 course repository">
+        </a>
+        <a href="https://github.com/NSLab-CUK/Graph-Neural-Networks-Fall-2024">
+          <img src="https://img.shields.io/badge/Fall-2024-0C2E86?style=flat-square&amp;logo=github&amp;logoColor=white" alt="Fall 2024 course repository">
+        </a>
+        <a href="https://github.com/NSLab-CUK/Graph-Neural-Networks-Fall-2023">
+          <img src="https://img.shields.io/badge/Fall-2023-0C2E86?style=flat-square&amp;logo=github&amp;logoColor=white" alt="Fall 2023 course repository">
+        </a>
+      </p>
+    </td>
+  </tr>
+</table>
 
 This repository is for archiving the Graph Neural Networks class (06838-01) of the Department of Artificial Intelligence at the Catholic University of Korea. This platform is dedicated to sharing and archiving lecture materials such as exercises, assignments, and sample code for the class. If you have any inquiries, please don't hesitate to contact the teaching assistants through the following email addresses.
 * Instructor
