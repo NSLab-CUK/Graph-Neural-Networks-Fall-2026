@@ -23,8 +23,8 @@ Late submissions are accepted, but the maximum grade for a late submission is B 
 
 If you have any questions, please contact the teaching staff.
 
-* Instructor: [O-Joun Lee](https://nslab-cuk.github.io/member) — [ojlee@catholic.ac.kr](mailto:ojlee@catholic.ac.kr)
+* Instructor: [Prof. O-Joun Lee](https://nslab-cuk.github.io/member/ojlee) — [ojlee@catholic.ac.kr](mailto:ojlee@catholic.ac.kr)
 * Teaching Assistants:
   * [Van Thuy Hoang](https://nslab-cuk.github.io/member/hoangvanthuy90) — [hoangvanthuy90@gmail.com](mailto:hoangvanthuy90@gmail.com)
   * [Tien-Bach-Thanh Do](https://nslab-cuk.github.io/member/osfa19730) — [osfa19730@catholic.ac.kr](mailto:osfa19730@catholic.ac.kr)
-  * [Huu-Tuong Ho](https://nslab-cuk.github.io/member/) — [tuonghh@catholic.ac.kr](mailto:tuonghh@catholic.ac.kr)
+  * [Huu-Tuong Ho](https://nslab-cuk.github.io/member/tuong) — [tuonghh@catholic.ac.kr](mailto:tuonghh@catholic.ac.kr)
