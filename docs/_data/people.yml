@@ -1,7 +1,7 @@
 instructors:
-  - name: O-Joun Lee
+  - name: Prof. O-Joun Lee
     profile_pic: /_images/pp/ojlee4.jpg
-    webpage: https://nslab-cuk.github.io/member
+    webpage: https://nslab-cuk.github.io/member/ojlee
     email: ojlee@catholic.ac.kr
 
 teaching_assistants:
@@ -17,5 +17,5 @@ teaching_assistants:
 
   - name: Huu-Tuong Ho
     profile_pic: /_images/pp/Tuong.jpg
-    webpage: https://nslab-cuk.github.io/member/
+    webpage: https://nslab-cuk.github.io/member/tuong
     email: tuonghh@catholic.ac.kr
