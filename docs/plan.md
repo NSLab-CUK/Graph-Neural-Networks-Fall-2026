@@ -23,9 +23,14 @@ permalink: /plan/
 * The Weisfeiler-Lehman (1-WL) Isomorphism Test.
 * Higher-order GNNs and Subgraph GNNs.
 
+### Week 4: Scalability of Graph Neural Networks
+* Issues with large-scale graph training (neighborhood explosion).
+* Node-wise sampling (GraphSAGE).
+* Graph/Subgraph-wise sampling (ClusterGCN, GraphSAINT).
+
 ## Part 2: Bottlenecks, Scalability & Trust
 
-### Week 4: Training Deeper GNNs
+### Week 5: Training Deeper GNNs
 * What impedes deep GNNs?
 * **Over-smoothing vs. Over-squashing.**
 * **Under-Reaching**
@@ -34,23 +39,13 @@ permalink: /plan/
     * Adaptive hop propagation: GPR-GNN, APPNP.
     * Layer-wise / jump aggregation: Jumping Knowledge (JKNet).
 
-### Week 5: Heterophily, Graph Structure Learning
+### Week 6: Heterophily, Graph Structure Learning
 * **Homophily** vs. **Heterophily**: revisiting the smoothness assumption; heterophily-aware GNNs (H2GCN, GPR-GNN).
-* **Graph Structure Learning (GSL)**: jointly or adaptively learning graph topology and node representations. ([IDGL](https://arxiv.org/abs/2006.13009), NeuralSparse, Pro-GNN)
-* Graph Augmentation strategies: **random** (edge/feature perturbation, DropNode) vs. **heuristic**, structure-aware augmentation.
-* **Graph Rewiring**:
-    * **Curvature-based** (Ricci curvature bottleneck detection): SDRF, BORF.
-    * **Spectral/diffusion-based**: DIGL, FoSR.
-    * **Expander-graph-based**: Expander Graph Propagation (EGP), LASER.
+* **Graph Structure Learning (GSL)**: jointly or adaptively learning graph topology and node representations.
 
-### Week 6: Attentive GNNs and Graph Pooling
+### Week 7: Attentive GNNs and Graph Pooling
 * Graph Attention Networks (GAT) and Attention in Heterogeneous graphs.
 * Hierarchical Graph Pooling (DiffPool, SAGPool).
-
-### Week 7: Scalability of Graph Neural Networks
-* Issues with large-scale graph training (neighborhood explosion).
-* Node-wise sampling (GraphSAGE).
-* Graph/Subgraph-wise sampling (ClusterGCN, GraphSAINT).
 
 ### Week 8: Mid-Term Exam
 
