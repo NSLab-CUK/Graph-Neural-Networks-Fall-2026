@@ -1,0 +1,140 @@
+---
+layout: default
+---
+{% assign sched = site.data.schedule %}
+
+<header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+</header>
+
+{{ content }}
+
+{%- comment -%} Start/end times of each weekly session, derived from its periods {%- endcomment -%}
+{% assign lecture_time = "" %}{% assign practice_time = "" %}
+{% for s in sched.sessions %}
+    {% assign p_first = s.periods | first %}{% assign p_last = s.periods | last %}
+    {% for p in sched.periods %}
+        {% if p.n == p_first %}{% assign s_start = p.start %}{% endif %}
+        {% if p.n == p_last %}{% assign s_end = p.end %}{% endif %}
+    {% endfor %}
+    {% capture s_time %}{{ s_start }}–{{ s_end }}{% endcapture %}
+    {% if s.kind == 'lecture' %}{% assign lecture_time = s_time %}{% endif %}
+    {% if s.kind == 'practice' %}{% assign practice_time = s_time %}{% endif %}
+{% endfor %}
+
+<!-- Weekly timetable -->
+<section class="sched-section">
+    <h2>Weekly Timetable</h2>
+    <div class="timetable" role="table" aria-label="Weekly timetable">
+        <div class="tt-head tt-corner" style="grid-column: 1; grid-row: 1;"></div>
+        {% for d in sched.days %}
+        <div class="tt-head" style="grid-column: {{ forloop.index | plus: 1 }}; grid-row: 1;">{{ d }}</div>
+        {% endfor %}
+
+        {% for p in sched.periods %}
+        {% assign row = forloop.index | plus: 1 %}
+        <div class="tt-period" style="grid-column: 1; grid-row: {{ row }};">
+            <strong>{{ p.n }}</strong><span>{{ p.start }}</span>
+        </div>
+        {% for d in sched.days %}
+        <div class="tt-cell" style="grid-column: {{ forloop.index | plus: 1 }}; grid-row: {{ row }};"></div>
+        {% endfor %}
+        {% endfor %}
+
+        {% for s in sched.sessions %}
+        {% assign col = 0 %}
+        {% for d in sched.days %}{% if d == s.day %}{% assign col = forloop.index | plus: 1 %}{% endif %}{% endfor %}
+        {% assign p_first = s.periods | first %}{% assign p_last = s.periods | last %}
+        {% for p in sched.periods %}
+            {% if p.n == p_first %}{% assign s_start = p.start %}{% assign s_row = forloop.index | plus: 1 %}{% endif %}
+            {% if p.n == p_last %}{% assign s_end = p.end %}{% endif %}
+        {% endfor %}
+        <div class="tt-session tt-{{ s.kind }}" style="grid-column: {{ col }}; grid-row: {{ s_row }} / span {{ s.periods.size }};">
+            <strong>{{ s.label }}</strong>
+            <span>{{ s_start }}–{{ s_end }}</span>
+            <span class="tt-note">Period{% if s.periods.size > 1 %}s {{ p_first }}–{{ p_last }}{% else %} {{ p_first }}{% endif %}{% if s.note %} · {{ s.note }}{% endif %}</span>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Week by week -->
+<section class="sched-section">
+    <h2>Week by Week</h2>
+    {% assign sem_start = sched.semester.first_monday | date: '%s' | plus: 0 %}
+    <div class="weeks">
+    {% for n in (1..sched.semester.weeks) %}
+        {% assign w_start = n | minus: 1 | times: 604800 | plus: sem_start %}
+        {% assign w_end = w_start | plus: 604800 %}
+        {% assign w_fri = w_start | plus: 345600 %}
+
+        {% assign lecture = nil %}
+        {% for l in site.lectures %}
+            {% assign l_s = l.date | date: '%s' | plus: 0 %}
+            {% if l_s >= w_start and l_s < w_end %}{% assign lecture = l %}{% endif %}
+        {% endfor %}
+
+        {% assign special = nil %}
+        {% for sw in sched.special_weeks %}{% if sw.week == n %}{% assign special = sw %}{% endif %}{% endfor %}
+
+        {% capture week_prefix %}Week {{ n }}: {% endcapture %}
+        <article class="week-card{% if lecture == nil %} is-upcoming{% endif %}{% if special and lecture == nil %} is-special{% endif %}">
+            <header>
+                <p class="week-eyebrow">Week {{ n }} &middot; {{ w_start | date: '%b %-d' }} – {{ w_fri | date: '%b %-d' }}</p>
+                {% if lecture %}
+                <h3>{{ lecture.title | remove_first: week_prefix }}</h3>
+                {% if lecture.tldr %}<p class="week-tldr">{{ lecture.tldr }}</p>{% endif %}
+                {% elsif special %}
+                <h3>{{ special.title }}</h3>
+                {% if special.note %}<p class="week-tldr">{{ special.note }}</p>{% endif %}
+                {% else %}
+                <h3>To be announced</h3>
+                {% endif %}
+            </header>
+
+            {% unless special and lecture == nil %}
+            {% if lecture %}
+                {% assign lec_date = lecture.date %}
+                {% if lecture.practice_date %}{% assign pr_date = lecture.practice_date %}{% else %}{% assign pr_date = lecture.date | date: '%s' | plus: 172800 %}{% endif %}
+            {% else %}
+                {% assign lec_date = w_start | plus: 86400 %}
+                {% assign pr_date = w_start | plus: 259200 %}
+            {% endif %}
+            <ul class="week-items">
+                <li>
+                    <span class="week-tag ev-lecture">Lecture</span>
+                    <span class="week-when">{{ lec_date | date: '%a, %b %-d' }} · {{ lecture_time }}</span>
+                    <span class="week-links">
+                    {% if lecture %}
+                    {% for link in lecture.links %}{% unless link.name contains 'practice' %}<a href="{% include url.html url=link.url %}">{{ link.name }}</a>{% endunless %}{% endfor %}
+                    {% else %}<span class="week-pending">Materials will be posted</span>{% endif %}
+                    </span>
+                </li>
+                <li>
+                    <span class="week-tag ev-practice">Practice</span>
+                    <span class="week-when">{{ pr_date | date: '%a, %b %-d' }} · {{ practice_time }}</span>
+                    <span class="week-links">
+                    {% if lecture %}
+                    {% for link in lecture.links %}{% if link.name contains 'practice' %}<a href="{% include url.html url=link.url %}">{{ link.name }}</a>{% endif %}{% endfor %}
+                    {% else %}<span class="week-pending">Materials will be posted</span>{% endif %}
+                    </span>
+                </li>
+                {% for asg in site.assignments %}
+                {% assign a_s = asg.date | date: '%s' | plus: 0 %}
+                {% if a_s >= w_start and a_s < w_end %}
+                <li>
+                    <span class="week-tag ev-assignment">Assignment</span>
+                    <span class="week-when">{% if asg.due_event %}Due {{ asg.due_event.date | date: '%a, %b %-d' }} · {{ asg.due_event.date | date: '%H:%M' }}{% endif %}</span>
+                    <span class="week-links">
+                        <a href="{{ asg.url | prepend: site.baseurl }}">{{ asg.title }}</a>
+                        {% if asg.solutions %}<a href="{% include url.html url=asg.solutions %}">solutions</a>{% endif %}
+                    </span>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+            {% endunless %}
+        </article>
+    {% endfor %}
+    </div>
+</section>

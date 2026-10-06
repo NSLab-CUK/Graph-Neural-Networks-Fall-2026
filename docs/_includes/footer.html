@@ -1,0 +1,51 @@
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <a href="{{ site.lab_url }}" class="footer-logo">
+          <img src="{{ '/_images/logo_wide.png' | prepend: site.baseurl }}" alt="Network Science Lab, The Catholic University of Korea">
+        </a>
+        <p>
+          <strong>{{ site.course_name }} ({{ site.course_code }})</strong> &middot; {{ site.course_semester }}<br>
+          {{ site.address | strip | newline_to_br }}
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Course</h4>
+        <ul>
+          {% for item in site.data.nav.items %}
+          {% unless item.url contains '://' %}
+          <li><a href="{% include url.html url=item.url %}">{{ item.name }}</a></li>
+          {% endunless %}
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          {% if site.github_repo %}
+          <li><a href="https://github.com/{{ site.github_repo }}"><i class="fab fa-github" aria-hidden="true"></i> Course repository</a></li>
+          {% endif %}
+          {% if site.lab_url %}
+          <li><a href="{{ site.lab_url }}"><i class="fas fa-flask" aria-hidden="true"></i> Network Science Lab</a></li>
+          {% endif %}
+          {% if site.schoolurl %}
+          <li><a href="{{ site.schoolurl }}"><i class="fas fa-university" aria-hidden="true"></i> {{ site.schoolname }}</a></li>
+          {% endif %}
+          {% for ins in site.data.people.instructors %}
+          {% if ins.email %}
+          <li><a href="mailto:{{ ins.email }}"><i class="fas fa-envelope" aria-hidden="true"></i> {{ ins.email }}</a></li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; {{ site.time | date: '%Y' }} Network Science Lab, {{ site.schoolname }}</span>
+      <span>Built with Jekyll, based on the <a href="https://github.com/kazemnejad/jekyll-course-website-template">course website template</a> (MIT)</span>
+    </div>
+  </div>
+</footer>

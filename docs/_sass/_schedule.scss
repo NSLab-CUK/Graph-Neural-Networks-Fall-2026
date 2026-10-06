@@ -1,0 +1,269 @@
+/**
+ * Schedule page: weekly timetable and week-by-week list
+ */
+$ev-lecture: $primary-color;
+$ev-practice: #0f7d72;
+$ev-assignment: #b45309;
+$sched-radius: 10px;
+
+.sched-section {
+    margin-bottom: $spacing-unit * 1.5;
+
+    > h2 {
+        margin-bottom: 14px;
+    }
+}
+
+// Event colors, shared by timetable blocks and tags
+.ev-lecture    { --ev: #{$ev-lecture}; }
+.ev-practice   { --ev: #{$ev-practice}; }
+.ev-assignment { --ev: #{$ev-assignment}; }
+
+/* Weekly timetable */
+.timetable {
+    display: grid;
+    grid-template-columns: 64px repeat(5, minmax(0, 1fr));
+    grid-auto-rows: minmax(44px, auto);
+    border: 1px solid $ui-line;
+    border-radius: $sched-radius;
+    overflow: hidden;
+    background: #fff;
+    font-family: $ui-font;
+    font-size: 13px;
+}
+
+.tt-head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    background: #f5f7fc;
+    border-bottom: 1px solid $ui-line;
+    font-weight: 700;
+    color: $ui-ink;
+}
+
+.tt-period {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid $ui-line;
+    border-top: 1px solid #f0f2f7;
+    background: #fafbfe;
+    line-height: 1.2;
+    color: $ui-muted;
+
+    strong {
+        color: $ui-ink;
+        font-size: 13px;
+    }
+
+    span {
+        font-size: 11px;
+    }
+}
+
+.tt-cell {
+    border-top: 1px solid #f0f2f7;
+    border-left: 1px solid #f0f2f7;
+}
+
+.tt-session {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    margin: 4px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border-left: 4px solid var(--ev);
+    background: color-mix(in srgb, var(--ev) 10%, #fff);
+    color: $ui-ink;
+    line-height: 1.3;
+
+    strong {
+        color: var(--ev);
+        font-size: 14px;
+    }
+
+    .tt-note {
+        color: $ui-muted;
+        font-size: 12px;
+    }
+}
+
+.tt-lecture  { --ev: #{$ev-lecture}; }
+.tt-practice { --ev: #{$ev-practice}; }
+
+/* Shared tag and link styles */
+.week-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--ev);
+    color: #fff;
+    font-family: $ui-font;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+.week-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+
+    a {
+        padding: 3px 10px;
+        border: 1px solid #d9deea;
+        border-radius: 999px;
+        background: #fff;
+        font-family: $ui-font;
+        font-size: 12.5px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: background-color 0.15s ease, border-color 0.15s ease;
+
+        &:hover {
+            border-color: $primary-color;
+            background: $ui-tint;
+            text-decoration: none;
+        }
+    }
+}
+
+/* Week by week */
+.weeks {
+    display: grid;
+    gap: 14px;
+}
+
+.week-card {
+    padding: 16px 18px;
+    border: 1px solid $ui-line;
+    border-radius: $sched-radius;
+    background: #fff;
+
+    h3 {
+        margin: 0;
+        font-size: 17px;
+        font-weight: 600;
+        color: $ui-ink;
+    }
+}
+
+.week-eyebrow {
+    margin: 0 0 2px;
+    font-family: $ui-font;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: $primary-color;
+}
+
+.week-card.is-upcoming {
+    background: #fbfcfe;
+    border-style: dashed;
+
+    h3 {
+        color: $ui-muted;
+    }
+}
+
+.week-card.is-special {
+    border-style: solid;
+    border-left: 4px solid $ev-assignment;
+    background: color-mix(in srgb, #{$ev-assignment} 5%, #fff);
+
+    .week-eyebrow {
+        color: $ev-assignment;
+    }
+
+    h3 {
+        color: $ui-ink;
+    }
+}
+
+.week-pending {
+    font-family: $ui-font;
+    font-size: 13px;
+    font-style: italic;
+    color: #9aa1b2;
+}
+
+.week-tldr {
+    margin: 4px 0 0;
+    color: $ui-muted;
+    font-size: 14px;
+}
+
+.week-items {
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+        display: grid;
+        grid-template-columns: 96px 170px 1fr;
+        align-items: center;
+        gap: 4px 12px;
+        padding: 8px 0;
+        border-top: 1px dashed $ui-line;
+
+        &::before {
+            content: none;
+        }
+    }
+
+    .week-tag {
+        justify-self: start;
+    }
+
+    .week-when {
+        font-family: $ui-font;
+        font-size: 13px;
+        font-weight: 600;
+        color: $ui-muted;
+    }
+
+    .week-links {
+        margin-top: 0;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .timetable {
+        grid-template-columns: 44px repeat(5, minmax(0, 1fr));
+        font-size: 12px;
+    }
+
+    .tt-session {
+        margin: 2px;
+        padding: 4px 5px;
+
+        strong {
+            font-size: 12px;
+        }
+
+        span {
+            font-size: 10.5px;
+        }
+
+        .tt-note {
+            display: none;
+        }
+    }
+
+    .week-items li {
+        grid-template-columns: auto 1fr;
+
+        .week-links {
+            grid-column: 1 / -1;
+        }
+    }
+}

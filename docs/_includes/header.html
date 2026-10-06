@@ -1,0 +1,19 @@
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="{{ site.baseurl }}/" title="{{ site.course_name }} / {{ site.course_semester }} - {{ site.schoolname }}">
+      <img class="brand-logo" src="{{ '/_images/logo_wide.png' | prepend: site.baseurl }}" alt="Network Science Lab, The Catholic University of Korea">
+      <span class="brand-divider" aria-hidden="true"></span>
+      <span class="brand-text">
+        <span class="brand-title">{{ site.course_name }}</span>
+        <span class="brand-sub">{{ site.course_code }} &middot; {{ site.course_semester }}</span>
+      </span>
+    </a>
+
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation">
+    <label for="nav-toggle" class="nav-toggle-label" aria-hidden="true"><span></span></label>
+
+    <nav class="site-nav" aria-label="Main navigation">
+      {% include nav.html %}
+    </nav>
+  </div>
+</header>

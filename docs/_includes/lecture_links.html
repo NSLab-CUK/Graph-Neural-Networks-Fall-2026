@@ -1,0 +1,6 @@
+
+    {% if include.lecture.links %}
+    {% for link in include.lecture.links %}
+    [<a title="Open {{ link.name }}" href="{% include url.html url=link.url %}">{{ link.name }}</a>]
+    {% endfor %}
+    {% endif %}

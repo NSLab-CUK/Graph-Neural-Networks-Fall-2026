@@ -1,0 +1,21 @@
+# Python / Jupyter
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+
+# Editor
+.vscode/
+
+# Local backups and scratch copies of notebooks
+**/Backup/
+* copy.ipynb
+* copy [0-9].ipynb
+* Backup.ipynb
+* (1).ipynb
+
+# Jekyll site (docs/)
+docs/_site/
+docs/.jekyll-cache/
+docs/.sass-cache/
+docs/vendor/
+docs/Gemfile.lock

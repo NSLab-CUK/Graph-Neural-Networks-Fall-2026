@@ -1,0 +1,289 @@
+/**
+ * Site header
+ */
+$ui-font: 'Inter', 'Open Sans', Helvetica, Arial, sans-serif;
+$ui-ink: #0f1b3d;
+$ui-muted: #5b6478;
+$ui-line: #e6e9f2;
+$ui-tint: #eef2fb;
+
+html {
+    scroll-padding-top: 90px;
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    -webkit-backdrop-filter: saturate(180%) blur(10px);
+    backdrop-filter: saturate(180%) blur(10px);
+    border-bottom: 1px solid $ui-line;
+    box-shadow: 0 1px 12px rgba(12, 46, 134, 0.06);
+    font-family: $ui-font;
+
+    // NSLab blue accent line along the top edge
+    &::before {
+        content: '';
+        display: block;
+        height: 4px;
+        background: linear-gradient(90deg, $primary-color 0%, #2f5fd0 60%, $primary-color 100%);
+    }
+}
+
+.header-inner {
+    position: relative;
+    max-width: calc(#{$content-width} - (#{$spacing-unit} * 2));
+    margin: 0 auto;
+    padding: 0 $spacing-unit;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+    text-decoration: none;
+
+    &:hover,
+    &:visited {
+        text-decoration: none;
+    }
+}
+
+.brand-logo {
+    display: block;
+    height: 38px;
+    width: auto;
+}
+
+.brand-divider {
+    flex: none;
+    width: 1px;
+    height: 36px;
+    background: #d9deea;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+}
+
+.brand-title {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: $ui-ink;
+    white-space: nowrap;
+}
+
+.brand-sub {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: $ui-muted;
+    white-space: nowrap;
+}
+
+.site-nav .menu {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.site-nav .page-link {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #3a4357;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+
+    // Icons only show in the mobile menu
+    i {
+        display: none;
+        width: 16px;
+        font-size: 13px;
+        text-align: center;
+        opacity: 0.7;
+    }
+
+    &:visited {
+        color: #3a4357;
+    }
+
+    &:hover {
+        background: $ui-tint;
+        color: $primary-color;
+        text-decoration: none;
+
+        i {
+            opacity: 1;
+        }
+    }
+
+    &.active,
+    &.active:visited {
+        background: $primary-color;
+        color: #fff;
+
+        i {
+            opacity: 1;
+        }
+    }
+}
+
+// Mobile menu toggle (CSS only, no JavaScript)
+.nav-toggle {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.nav-toggle-label {
+    display: none;
+}
+
+@media screen and (max-width: 1040px) {
+    .header-inner {
+        height: 64px;
+    }
+
+    .nav-toggle-label {
+        display: flex;
+        flex: none;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        cursor: pointer;
+
+        &:hover {
+            background: $ui-tint;
+        }
+
+        span,
+        span::before,
+        span::after {
+            display: block;
+            position: relative;
+            width: 20px;
+            height: 2px;
+            border-radius: 2px;
+            background: $ui-ink;
+            transition: transform 0.2s ease, top 0.2s ease, background-color 0.2s ease;
+        }
+
+        span::before,
+        span::after {
+            content: '';
+            position: absolute;
+            left: 0;
+        }
+
+        span::before {
+            top: -6px;
+        }
+
+        span::after {
+            top: 6px;
+        }
+    }
+
+    .nav-toggle:focus-visible + .nav-toggle-label {
+        outline: 2px solid $primary-color;
+        outline-offset: 2px;
+    }
+
+    .nav-toggle:checked + .nav-toggle-label span {
+        background: transparent;
+
+        &::before {
+            top: 0;
+            transform: rotate(45deg);
+        }
+
+        &::after {
+            top: 0;
+            transform: rotate(-45deg);
+        }
+    }
+
+    .site-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        padding: 8px 16px 16px;
+        background: #fff;
+        border-bottom: 1px solid $ui-line;
+        box-shadow: 0 12px 24px rgba(15, 27, 61, 0.08);
+    }
+
+    .nav-toggle:checked ~ .site-nav {
+        display: block;
+    }
+
+    .site-nav .menu {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2px;
+    }
+
+    .site-nav .page-link {
+        padding: 12px;
+        font-size: 15px;
+
+        i {
+            display: inline-block;
+        }
+    }
+}
+
+@include media-query($on-laptop) {
+    .header-inner {
+        padding: 0 $spacing-unit / 2;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .header-inner {
+        gap: 12px;
+    }
+
+    .brand {
+        gap: 12px;
+    }
+
+    .brand-logo {
+        height: 28px;
+    }
+
+    .brand-divider {
+        height: 28px;
+    }
+
+    .brand-title {
+        font-size: 14px;
+        white-space: normal;
+    }
+
+    .brand-sub {
+        display: none;
+    }
+}

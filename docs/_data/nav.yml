@@ -1,0 +1,20 @@
+items:
+- url: /
+  name: Home
+  icon_class: fa fa-home fa-lg
+
+- url: /plan/
+  name: Course Plan
+  icon_class: fas fa-list-ol
+
+- url: /schedule/
+  name: Schedule
+  icon_class: fas fa-calendar-alt
+
+- url: /materials/
+  name: Materials
+  icon_class: fas fa-book
+
+- url: https://github.com/NSLab-CUK/Graph-Neural-Networks-Fall-2026
+  name: GitHub
+  icon_class: fab fa-github

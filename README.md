@@ -71,6 +71,7 @@ Late submissions will be accepted, but the maximum grade that can be achieved fo
 The syllabus for this class can be found on the following Notion page.
 
 * <a href="https://ns-cuk.notion.site/06838-Graph-Neural-Networks-Fall-2023-f147ff0f52ab41acbcb8636de7e44d46?pvs=4"><img src="https://img.shields.io/badge/Notion-Syllabus-000000?style=flat-square&logo=Notion"></a>
+* <a href="https://nslab-cuk.github.io/Graph-Neural-Networks-Fall-2026/"><img src="https://img.shields.io/badge/Course-Website-0C2E86?style=flat-square&logo=githubpages&logoColor=white"></a>
 
 
 ### Contributors
