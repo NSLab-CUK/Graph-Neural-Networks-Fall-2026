@@ -10,8 +10,8 @@ permalink: /plan/
 
 ### Week 1: Graph Foundations & Traditional Embeddings
 * Basic graph concepts (nodes, edges, adjacency/sparse matrix representation).
-* Centrality measurements (Degree, Betweenness, PageRank, ...) and Graph kernels.
-* Shallow embedding models: Random walk (DeepWalk, Node2Vec) and proximity-based models.
+* Centrality measurements (Degree, Betweenness, PageRank, etc.) and Graph kernels.
+* Shallow embedding models: Random walk (DeepWalk, Node2Vec, etc.) and proximity-based models.
 
 ### Week 2: Message Passing & Graph Neural Networks
 * Motivation from CNNs to GNNs.
