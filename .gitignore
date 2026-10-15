@@ -19,3 +19,5 @@ docs/.jekyll-cache/
 docs/.sass-cache/
 docs/vendor/
 docs/Gemfile.lock
+
+dataset/
