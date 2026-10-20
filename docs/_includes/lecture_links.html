@@ -1,6 +1,6 @@
 
     {% if include.lecture.links %}
     {% for link in include.lecture.links %}
-    [<a title="Open {{ link.name }}" href="{% include url.html url=link.url %}">{{ link.name }}</a>]
+    {% if link.url contains 'colab.research.google.com' %}{% include link.html link=link %}{% else %}[{% include link.html link=link %}]{% endif %}
     {% endfor %}
     {% endif %}

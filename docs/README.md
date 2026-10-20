@@ -67,6 +67,20 @@ Add one line to the assignment's front matter:
 solutions: https://github.com/NSLab-CUK/Graph-Neural-Networks-Fall-2026/blob/main/W6/Solution_6.ipynb
 ```
 
+### Exams
+
+Exam weeks are listed under `special_weeks` in `_data/schedule.yml`. To post the exam paper and solutions, add `links` to that week; they show up as an **Exam** row on its card:
+
+```yaml
+  - week: 8
+    title: Mid-Term Exam
+    links:
+      - url: https://github.com/NSLab-CUK/Graph-Neural-Networks-Fall-2026/blob/main/W8/Midterm_Exam-FA26.pdf
+        name: exam
+      - url: https://github.com/NSLab-CUK/Graph-Neural-Networks-Fall-2026/blob/main/W8/Midterm_Exam-FA26_solutions.pdf
+        name: solutions
+```
+
 ### 4. Commit and push to `main`
 
 ### Tips

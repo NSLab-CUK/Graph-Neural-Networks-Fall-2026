@@ -16,6 +16,7 @@ permalink: /materials/
 * `W*/PracticeCode_*.ipynb`: practices on every Thursday
 * `W*/Assignment_*.ipynb`: weekly assignments (submit through e-class by the next Wednesday)
 * `W*/Solution_*.ipynb`: solutions for the assignments (uploaded after the deadline)
+* `W8/Midterm_Exam-FA26.pdf`, `W8/Midterm_Exam-FA26_solutions.pdf`: mid-term exam and its solutions
 
 ## Previous Years
 

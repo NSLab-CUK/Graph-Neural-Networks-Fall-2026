@@ -33,7 +33,12 @@ semester:
 special_weeks:
   - week: 8
     title: Mid-Term Exam
-    note: Details will be announced in class.
+    note: Exam paper and solutions are posted below.
+    links:
+      - url: https://github.com/NSLab-CUK/Graph-Neural-Networks-Fall-2026/blob/main/W8/Midterm_Exam-FA26.pdf
+        name: exam
+      - url: https://github.com/NSLab-CUK/Graph-Neural-Networks-Fall-2026/blob/main/W8/Midterm_Exam-FA26_solutions.pdf
+        name: solutions
   - week: 16
     title: Final Exam
     note: Details will be announced in class.

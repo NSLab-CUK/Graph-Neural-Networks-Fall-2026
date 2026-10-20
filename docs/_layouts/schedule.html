@@ -92,6 +92,18 @@ layout: default
                 {% endif %}
             </header>
 
+            {% if special and lecture == nil and special.links %}
+            <ul class="week-items">
+                <li>
+                    <span class="week-tag ev-assignment">Exam</span>
+                    <span class="week-when">{{ special.title }}</span>
+                    <span class="week-links">
+                    {% for link in special.links %}{% include link.html link=link %}{% endfor %}
+                    </span>
+                </li>
+            </ul>
+            {% endif %}
+
             {% unless special and lecture == nil %}
             {% if lecture %}
                 {% assign lec_date = lecture.date %}
@@ -106,7 +118,7 @@ layout: default
                     <span class="week-when">{{ lec_date | date: '%a, %b %-d' }} · {{ lecture_time }}</span>
                     <span class="week-links">
                     {% if lecture %}
-                    {% for link in lecture.links %}{% unless link.name contains 'practice' %}<a href="{% include url.html url=link.url %}">{{ link.name }}</a>{% endunless %}{% endfor %}
+                    {% for link in lecture.links %}{% unless link.name contains 'practice' %}{% include link.html link=link %}{% endunless %}{% endfor %}
                     {% else %}<span class="week-pending">Materials will be posted</span>{% endif %}
                     </span>
                 </li>
@@ -115,7 +127,7 @@ layout: default
                     <span class="week-when">{{ pr_date | date: '%a, %b %-d' }} · {{ practice_time }}</span>
                     <span class="week-links">
                     {% if lecture %}
-                    {% for link in lecture.links %}{% if link.name contains 'practice' %}<a href="{% include url.html url=link.url %}">{{ link.name }}</a>{% endif %}{% endfor %}
+                    {% for link in lecture.links %}{% if link.name contains 'practice' %}{% include link.html link=link %}{% endif %}{% endfor %}
                     {% else %}<span class="week-pending">Materials will be posted</span>{% endif %}
                     </span>
                 </li>

@@ -1,0 +1,7 @@
+{%- comment -%} Renders one material link; Colab links become the "Open in Colab" badge {%- endcomment -%}
+{%- assign label = include.link.name | remove: ' (Colab)' -%}
+{%- if include.link.url contains 'colab.research.google.com' -%}
+<a class="colab-link" title="Open {{ label }} in Colab" href="{% include url.html url=include.link.url %}"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open {{ label }} in Colab"></a>
+{%- else -%}
+<a title="Open {{ include.link.name }}" href="{% include url.html url=include.link.url %}">{{ include.link.name }}</a>
+{%- endif -%}
