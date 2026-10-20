@@ -117,7 +117,7 @@ $sched-radius: 10px;
     gap: 6px;
     margin-top: 6px;
 
-    a {
+    a:not(.colab-link) {
         padding: 3px 10px;
         border: 1px solid #d9deea;
         border-radius: 999px;
@@ -134,17 +134,10 @@ $sched-radius: 10px;
             text-decoration: none;
         }
 
-        &.colab-link {
-            padding: 0;
-            border: 0;
-            background: none;
-            margin-right: 6px;
+    }
 
-            &:hover {
-                background: none;
-                opacity: 0.85;
-            }
-        }
+    a.colab-link {
+        margin-right: 6px;
     }
 }
 
@@ -153,7 +146,15 @@ a.colab-link {
     display: inline-flex;
     align-items: center;
     vertical-align: middle;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
     text-decoration: none;
+
+    &:hover {
+        opacity: 0.85;
+    }
 
     img {
         display: block;
