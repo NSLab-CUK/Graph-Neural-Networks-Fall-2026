@@ -73,7 +73,13 @@ The syllabus for this class can be found on the following Notion page.
 * <a href="https://nslab-cuk.github.io/Graph-Neural-Networks-Fall-2026/"><img src="https://img.shields.io/badge/Course-Website-0C2E86?style=flat-square&logo=githubpages&logoColor=white"></a>
 
 
-### Contributors
+### Acknowledgments & Contributors
+
+This repository builds upon lecture materials, practice notebooks, and assignment templates developed in previous iterations of the course. We gratefully acknowledge the contributions of our former Teaching Assistants:
+
+* Fall 2022 -- Fall 2025: [Van Thuy Hoang](https://nslab-cuk.github.io/member/hoangvanthuy90)
+* Fall 2024: Huy Quang Tran
+* Fall 2023: Sang Thanh Nguyen 
 
 <a href="https://github.com/NSLab-CUK/Graph-Neural-Networks-Fall-2026/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=NSLab-CUK/Graph-Neural-Networks-Fall-2026" />
