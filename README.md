@@ -77,7 +77,7 @@ The syllabus for this class can be found on the following Notion page.
 
 This repository builds upon lecture materials, practice notebooks, and assignment templates developed in previous iterations of the course. We gratefully acknowledge the contributions of our former Teaching Assistants:
 
-* Fall 2022 -- Fall 2025: [Van Thuy Hoang](https://nslab-cuk.github.io/member/hoangvanthuy90)
+* Fall 2023 -- Fall 2025: [Van Thuy Hoang](https://nslab-cuk.github.io/member/hoangvanthuy90)
 * Fall 2024: Huy Quang Tran
 * Fall 2023: Sang Thanh Nguyen 
 
